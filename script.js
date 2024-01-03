@@ -98,8 +98,69 @@ const quizData = [
         id: 19,
         src: "https://i.postimg.cc/BvYBkDp2/20.jpg",
         correct: "yes"
+    },
+    {
+        id: 20,
+        src: "https://i.postimg.cc/445Kfd7x/21.jpg",
+        correct: "yes"
+    },
+    {
+        id: 21,
+        src: "https://i.postimg.cc/WpX3RHCD/22.jpg",
+        correct: "yes"
+    },
+    {
+        id: 22,
+        src: "https://i.postimg.cc/kgkG1RZf/23.jpg",
+        correct: "yes"
+    },
+    {
+        id: 23,
+        src: "https://i.postimg.cc/kXYBSpyr/24.jpg",
+        correct: "yes"
+    },
+    {
+        id: 24,
+        src: "https://i.postimg.cc/zvXGbCbX/25.jpg",
+        correct: "no"
+    },
+    {
+        id: 25,
+        src: "https://i.postimg.cc/65p8yXnL/26.jpg",
+        correct: "no"
+    },
+    {
+        id: 26,
+        src: "https://i.postimg.cc/7ZCbnnB5/27.jpg",
+        correct: "no"
+    },
+    {
+        id: 27,
+        src: "https://i.postimg.cc/MTwTx2zB/28.jpg",
+        correct: "yes"
+    },
+    {
+        id: 28,
+        src: "https://i.postimg.cc/D0jyqSLQ/29.jpg",
+        correct: "no"
+    },
+    {
+        id: 29,
+        src: "https://i.postimg.cc/26x5Sc5K/30.jpg",
+        correct: "no"
+    },
+    {
+        id: 30,
+        src: "https://i.postimg.cc/VNn63LP1/31.jpg",
+        correct: "no"
+    },
+    {
+        id: 31,
+        src: "https://i.postimg.cc/5NytfmWs/32.jpg",
+        correct: "yes"
     }
 ];
+
 const shuffleArray = array => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -107,10 +168,10 @@ const shuffleArray = array => {
       array[i] = array[j];
       array[j] = temp;
     }
-  };
+};
 
 shuffleArray(quizData);
-console.log(quizData[0]);
+
 const nextQbtn = document.getElementById("btn");
 const imgElem = document.getElementById("img");
 const quizForm = document.getElementById("quiz-form");
@@ -122,27 +183,55 @@ img.src = quizData[currentImage].src;
 img.classList.add("img");
 imgElem.appendChild(img);
 let score = 0;
+const wrongAnswers = [];
+const br = document.createElement("br");
+
+function showResults() {
+    quizForm.classList.add("hide");
+    result.innerText = `Du svarede rigtigt på ${Math.round(100*score/quizData.length)}% af spørgsmålene (${score}/${quizData.length}).`;
+    
+    if (wrongAnswers.length > 0) {
+        result.innerText += "\n\nTjek disse billeder igen (grøn = SN, rød = ikke SN):\n\n"
+        let image = new Image();
+        for (let id of wrongAnswers) {
+            let i = image.cloneNode();
+            for (let obj of quizData) {
+                if (obj.id === id) {
+                    i.src = obj.src;
+                    if (obj.correct === "yes") {
+                        i.classList.add("border-green");
+                    } else {
+                        i.classList.add("border-red");
+                    }
+                }
+            }
+            i.classList.add("img");
+            result.appendChild(i);
+            result.appendChild(br);
+        }
+    }
+    result.classList.remove("hide");
+}
 
 
 function nextImage() {
-    let answer = document.querySelector('input[name="answer"]:checked').value;
-    if (quizData[currentImage].correct === answer) {
-        score++;
-    }
-    if (currentImage < quizData.length-1) {
-        currentImage++;
-        img.src = quizData[currentImage].src;
-        imgElem.replaceChildren(img);
-        if (currentImage === quizData.length - 1) {
-            nextQbtn.innerText = "Færdig!";
+    let answer = document.querySelector('input[name="answer"]:checked')?.value;
+    if (answer) {
+        if (quizData[currentImage].correct === answer) {
+            score++;
+        } else {
+            wrongAnswers.push(quizData[currentImage].id);
         }
-    } else {
-        quizForm.classList.add("hide");
-        result.innerText = `Du svarede rigtigt på ${Math.round(100*score/quizData.length)}% af spørgsmålene (${score}/${quizData.length}).`;
-        result.classList.remove("hide");
-    }
+        if (currentImage < quizData.length-1) {
+            currentImage++;
+            img.src = quizData[currentImage].src;
+            imgElem.replaceChildren(img);
+        } else {
+            showResults();
+        }
     
-    document.querySelector('input[name="answer"]:checked').checked = false;
+        document.querySelector('input[name="answer"]:checked').checked = false;
+    }
 }
 
 
