@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SN Quiz</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <form id="quiz-form">
+        <h1>SN eller ej?</h1>
+        <span id="img">
+
+        </span>
+        <div id="answers">
+            <input type="radio" name="answer" id="yes" value="yes" />
+            <label for="yes" class="yes">Ja, det er spids nøgenhat</label><br />
+            <input type="radio" name="answer" id="no" value="no" />
+            <label for="no" class="no">Nej, det er IKKE spids nøgenhat</label>
+        </div>
+        <button type="button" id="btn">Næste spørgsmål</button>
+    </form>
+    <div id="result" class="hide"></div>
+    <script src="./script.js"></script>
+</body>
+</html>
