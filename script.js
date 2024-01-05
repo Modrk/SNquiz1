@@ -176,22 +176,23 @@ const nextQbtn = document.getElementById("btn");
 const imgElem = document.getElementById("img");
 const quizForm = document.getElementById("quiz-form");
 const result = document.getElementById("result");
+const qCounter = document.getElementById("question-counter");
 
 let currentImage = 0;
 let img = new Image();
 img.src = quizData[currentImage].src;
-img.classList.add("img");
+img.classList.add("img-fluid");
+img.style.maxHeight = "500px";
 imgElem.appendChild(img);
 let score = 0;
 const wrongAnswers = [];
-const br = document.createElement("br");
 
 function showResults() {
-    quizForm.classList.add("hide");
-    result.innerText = `Du svarede rigtigt på ${Math.round(100*score/quizData.length)}% af spørgsmålene (${score}/${quizData.length}).`;
+    quizForm.classList.add("d-none", "invisible");
+    result.innerHTML += `<p>Du svarede rigtigt på <strong>${Math.round(100*score/quizData.length)}%</strong> af spørgsmålene (${score}/${quizData.length}).</p>`;
     
     if (wrongAnswers.length > 0) {
-        result.innerText += "\n\nTjek disse billeder igen (grøn = SN, rød = ikke SN):\n\n"
+        result.innerHTML += "<p>Tjek disse billeder igen (<span class=\"text-success fw-bold\">grøn</span> = SN, <span class=\"text-danger fw-bold\">rød</span> = ikke SN):</p>";
         let image = new Image();
         for (let id of wrongAnswers) {
             let i = image.cloneNode();
@@ -205,12 +206,12 @@ function showResults() {
                     }
                 }
             }
-            i.classList.add("img");
+            i.classList.add("d-block", "img-fluid");
+            i.style.maxHeight = "500px";
             result.appendChild(i);
-            result.appendChild(br);
         }
     }
-    result.classList.remove("hide");
+    result.classList.remove("invisible");
 }
 
 
@@ -231,6 +232,7 @@ function nextImage() {
         }
     
         document.querySelector('input[name="answer"]:checked').checked = false;
+        qCounter.innerText = currentImage+1;
     }
 }
 
