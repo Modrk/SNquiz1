@@ -96,7 +96,7 @@ const quizData = [
     },
     {
         id: 19,
-        src: "https://i.postimg.cc/BvYBkDp2/20.jpg",
+        src: "https://i.postimg.cc/PryWM4Tp/20.jpg",
         correct: "yes"
     },
     {
@@ -156,7 +156,22 @@ const quizData = [
     },
     {
         id: 31,
-        src: "https://i.postimg.cc/5NytfmWs/32.jpg",
+        src: "https://i.postimg.cc/x8yKhGmZ/32.jpg",
+        correct: "yes"
+    },
+    {
+        id: 32,
+        src: "https://i.postimg.cc/VsjBJwhF/33.jpg",
+        correct: "yes"
+    },
+    {
+        id: 33,
+        src: "https://i.postimg.cc/BQ45Dy9f/34.jpg",
+        correct: "yes"
+    },
+    {
+        id: 34,
+        src: "https://i.postimg.cc/D0KrxpSs/35.jpg",
         correct: "yes"
     }
 ];
